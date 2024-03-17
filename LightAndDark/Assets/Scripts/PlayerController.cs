@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -7,8 +8,6 @@ public class PlayerController : NetworkBehaviour
     public float jumpForce = 3f;
     private Rigidbody2D rb;
 
-
-    private NetworkVariable<int> randNum = new NetworkVariable<int>(1);
     public override void OnNetworkSpawn()
     {
         if(!IsOwner) Destroy(this);
@@ -23,7 +22,8 @@ public class PlayerController : NetworkBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         Vector2 horizontalMovement = new Vector2(horizontalInput, 0f) * moveSpeed;
-
+        
+        Debug.Log("1");
         // Apply horizontal movement
         rb.velocity = new Vector2(horizontalMovement.x, rb.velocity.y);
         
@@ -32,4 +32,6 @@ public class PlayerController : NetworkBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
+
+
 }
