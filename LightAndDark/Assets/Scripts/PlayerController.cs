@@ -6,8 +6,9 @@ public class PlayerController : NetworkBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 3f;
     private Rigidbody2D rb;
-    
 
+
+    private NetworkVariable<int> randNum = new NetworkVariable<int>(1);
     public override void OnNetworkSpawn()
     {
         if(!IsOwner) Destroy(this);
