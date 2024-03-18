@@ -3,12 +3,18 @@ using Unity.Netcode;
 using System.Collections.Generic;
 
 public class ObjectSpawner : NetworkBehaviour
-{
+{   
+    
     public GameObject PrefabToSpawn;
     private NetworkObject SpawnedNetworkObject;
-    
+    public static ObjectSpawner Instance;
     [SerializeField] private List<Vector2> spawnPositions = new List<Vector2>();
-
+    
+    private void Awake()
+    {
+        Instance = this; // Set the singleton instance reference
+    }
+    
     private void Start()
     {
         enabled = IsServer;
@@ -25,13 +31,15 @@ public class ObjectSpawner : NetworkBehaviour
         }
     }
     
-    public void DespawnObject(GameObject objectToDespawn)
+    [ServerRpc(RequireOwnership = false)]
+    public void DespawnObjectServerRpc(ulong objectId)
     {
         if (IsServer && SpawnedNetworkObject.IsSpawned)
         {
-            var networkObject = objectToDespawn.GetComponent<NetworkObject>();
+            NetworkObject networkObject = NetworkManager.Singleton.SpawnManager.SpawnedObjects[objectId];
             networkObject.Despawn(true);
         }
     }
+    
     
 }

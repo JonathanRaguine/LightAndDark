@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - circle
+  - ground
   layers:
   - Default
   - TransparentFX
