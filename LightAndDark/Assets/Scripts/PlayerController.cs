@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : NetworkBehaviour
 {
+
     public float moveSpeed = 5f;
     public float jumpForce = 3f;
     public bool isGrounded;
@@ -21,6 +22,7 @@ public class PlayerController : NetworkBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         isGrounded = false;
+
     }
 
     private void Update()

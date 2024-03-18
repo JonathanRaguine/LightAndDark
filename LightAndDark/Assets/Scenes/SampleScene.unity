@@ -462,7 +462,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124980160}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.1404, y: -4.7753, z: 0}
+  m_LocalPosition: {x: 0.18, y: -4.7753, z: 0}
   m_LocalScale: {x: 5.027392, y: 0.4894, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1095,6 +1095,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1934865096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934865084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8deae8091111f4eb30a56c1f4e0d3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 1934865095}
 --- !u!1001 &1982455171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1112,7 +1126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3029994955438519670, guid: 782abffd7cf1f3e42a74ebf7222d53b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.03
+      value: 0.089999676
       objectReference: {fileID: 0}
     - target: {fileID: 3029994955438519670, guid: 782abffd7cf1f3e42a74ebf7222d53b9, type: 3}
       propertyPath: m_LocalPosition.y
