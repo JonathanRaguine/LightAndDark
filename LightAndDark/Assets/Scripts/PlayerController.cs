@@ -1,7 +1,5 @@
-using System.Xml.Schema;
 using TMPro;
 using Unity.Netcode;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 

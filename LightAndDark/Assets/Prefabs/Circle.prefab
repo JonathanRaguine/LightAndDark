@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6381303628523675575}
   - component: {fileID: 1132181320543045534}
   - component: {fileID: 620661376837616349}
+  - component: {fileID: -6226820645042335612}
   m_Layer: 0
   m_Name: Circle
   m_TagString: circle
@@ -188,5 +189,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6226820645042335612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242522191528223927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560267d36bd14b44daf42bccc25c8ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
