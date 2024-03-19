@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2500428590
+  GlobalObjectIdHash: 945093373
   InScenePlacedSourceGlobalObjectIdHash: 945093373
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -177,6 +177,9 @@ MonoBehaviour:
   scoreText: {fileID: 0}
   isGrounded: 0
   canJump: 0
+  leverPrefab: {fileID: 5260126191042586200, guid: 59ddd8d9c8a0084458d622e6732a455f, type: 3}
+  canFlipLever: 0
+  lever: {fileID: -2956600080071663847, guid: 59ddd8d9c8a0084458d622e6732a455f, type: 3}
 --- !u!114 &7990518314283502486
 MonoBehaviour:
   m_ObjectHideFlags: 0

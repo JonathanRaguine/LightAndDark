@@ -6,6 +6,7 @@ TagManager:
   tags:
   - circle
   - ground
+  - lever
   layers:
   - Default
   - TransparentFX

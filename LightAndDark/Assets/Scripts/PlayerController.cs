@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -17,8 +18,9 @@ public class PlayerController : NetworkBehaviour
     private bool isFacingRight = true;
     public bool isGrounded;
     public bool canJump;
-    
-    
+    public GameObject leverPrefab;
+    public bool canFlipLever = false;
+
 
     private void Start()
     {
@@ -48,6 +50,17 @@ public class PlayerController : NetworkBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);   
         }
 
+        /*if (Input.GetKeyDown(KeyCode.E) && canFlipLever)
+        {
+            leverController lever = leverPrefab.gameObject.GetComponent<leverController>();
+            lever.Interact();
+        }*/
+        if (canFlipLever)
+        {
+            leverController lever = leverPrefab.GetComponent<leverController>();
+            lever.Interact(true);
+        }
+
         animator.SetBool("canJump", canJump);
         // Flip sprite if moving left
         if (_horizontalInput < 0)
@@ -62,26 +75,39 @@ public class PlayerController : NetworkBehaviour
             Flip(isFacingRight);
         }
     }
-    
-    /*private void OnTriggerEnter2D(Collider2D other)
+
+    /*private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("circle"))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            var networkObject = other.gameObject.GetComponent<NetworkObject>();
-            ObjectSpawner.Instance.DespawnObjectServerRpc(networkObject.NetworkObjectId);
-            Debug.Log("touching circle");
+            //leverController lever = leverPrefab.gameObject.GetComponent<leverController>();
+            Debug.Log("trying to interact with lever");
+            lever.Interact(true);
         }
     }*/
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("lever"))
+        {
+            canFlipLever = true;
+        }
+    }
     
-    
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("lever"))
+        {
+            canFlipLever = false;
+        }
+    }
+
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("ground"))
         {
             isGrounded = true;
             canJump = false;
-            Debug.Log("touching ground!");
-
         }
     }
 
@@ -91,16 +117,11 @@ public class PlayerController : NetworkBehaviour
         {
             isGrounded = false;
             canJump = true;
-            Debug.Log("jumping");
 
         }
     }
-    public void IncreaseScore(int amount)
-    {
-        if (!IsOwner) return; // Ensure only the owner can increase the score
-        score += amount;
-        scoreText.text = ("Score: " + score.ToString());
-    }
+
+    
     public void Flip(bool isFacingRight)
     {
         if (!IsLocalPlayer) return;
