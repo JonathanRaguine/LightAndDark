@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 7854721347323074924}
   - component: {fileID: -8722643739303540758}
   - component: {fileID: 7990518314283502486}
-  - component: {fileID: 1100938662638085991}
+  - component: {fileID: 3578951474671737809}
+  - component: {fileID: -2019499538130469748}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -110,7 +111,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &4081848798211679527
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -149,8 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 945093373
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 2500428590
+  InScenePlacedSourceGlobalObjectIdHash: 945093373
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -170,8 +171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ed45029a3f3e04296713357e6d37c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  speed: 3
   jumpForce: 3
+  score: 0
+  scoreText: {fileID: 0}
+  isGrounded: 0
+  canJump: 0
 --- !u!114 &7990518314283502486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +208,28 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &1100938662638085991
+--- !u!95 &3578951474671737809
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105303240966551736}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 634208f6b84c68c4796283f9db9ac9be, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-2019499538130469748
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,6 +238,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6105303240966551736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
+  m_Script: {fileID: 11500000, guid: ad8deae8091111f4eb30a56c1f4e0d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 3578951474671737809}
