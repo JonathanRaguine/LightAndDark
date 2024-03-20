@@ -6,22 +6,58 @@ using UnityEngine;
 
 public class leverController : NetworkBehaviour
 {
-    public GameObject prefab; // Reference to the platform to control
-    public bool isActivated;
-
-
-    public void Interact(bool activate)
+    [System.Serializable]
+    public struct PlatformData
     {
-        isActivated = !isActivated;
-        Debug.Log("activated lever");
-
-        // Check if the platform reference is not null before trying to control it
-        PlatformMovement platform = prefab.GetComponent<PlatformMovement>();
-        platform.Move(true);
-        UpdateLeverStateServerRpc(isActivated);
+        public GameObject platform;
+        public Vector2 initialPosition;
+        public Vector2 endPoint;
+        public float moveSpeed;
     }
 
-    [ServerRpc]
+    public PlatformData[] platformsToControl;
+    private bool isActivated = false;
+
+    private void Update()
+    {
+        if (isActivated)
+        {
+            foreach (PlatformData platformData in platformsToControl)
+            {
+                GameObject platform = platformData.platform;
+                Vector2 endPoint = platformData.endPoint;
+                float movementSpeed = platformData.moveSpeed;
+
+                // Move the platform towards the target position
+                platform.transform.position = Vector2.MoveTowards(platform.transform.position, endPoint,
+                    movementSpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            foreach (PlatformData platformData in platformsToControl)
+            {
+                GameObject platform = platformData.platform;
+                Vector2 initialPosition = platformData.initialPosition;
+                float movementSpeed = platformData.moveSpeed;
+
+                // Move the platform towards the initial position
+                platform.transform.position = Vector2.MoveTowards(platform.transform.position, initialPosition,
+                    movementSpeed * Time.deltaTime);
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            isActivated = !isActivated;
+
+        }
+    }
+
+    /*[ServerRpc]
     private void UpdateLeverStateServerRpc(bool activated)
     {
         isActivated = activated;
@@ -33,5 +69,5 @@ public class leverController : NetworkBehaviour
     {
         if (IsLocalPlayer) return;
         isActivated = activated;
-    }
+    }*/
 }

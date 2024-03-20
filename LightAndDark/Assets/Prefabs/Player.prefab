@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7990518314283502486}
   - component: {fileID: 3578951474671737809}
   - component: {fileID: -2019499538130469748}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -179,7 +179,6 @@ MonoBehaviour:
   canJump: 0
   leverPrefab: {fileID: 5260126191042586200, guid: 59ddd8d9c8a0084458d622e6732a455f, type: 3}
   canFlipLever: 0
-  lever: {fileID: -2956600080071663847, guid: 59ddd8d9c8a0084458d622e6732a455f, type: 3}
 --- !u!114 &7990518314283502486
 MonoBehaviour:
   m_ObjectHideFlags: 0

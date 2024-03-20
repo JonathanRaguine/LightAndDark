@@ -11,5 +11,6 @@ public class elementController : NetworkBehaviour
         if (!col.CompareTag("Player")) return;
         if (!NetworkManager.Singleton.IsServer) return;
         NetworkObjectPool.Singleton.ReturnNetworkObject(NetworkObject, prefab);
+        NetworkObject.Despawn();
     }
 }

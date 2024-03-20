@@ -55,11 +55,6 @@ public class PlayerController : NetworkBehaviour
             leverController lever = leverPrefab.gameObject.GetComponent<leverController>();
             lever.Interact();
         }*/
-        if (canFlipLever)
-        {
-            leverController lever = leverPrefab.GetComponent<leverController>();
-            lever.Interact(true);
-        }
 
         animator.SetBool("canJump", canJump);
         // Flip sprite if moving left
@@ -85,7 +80,7 @@ public class PlayerController : NetworkBehaviour
             lever.Interact(true);
         }
     }*/
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerStay2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("lever"))
         {
