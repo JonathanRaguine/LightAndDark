@@ -18,18 +18,21 @@ public class PlayerController : NetworkBehaviour
     private bool isFacingRight = true;
     public bool isGrounded;
     public bool canJump;
-    public GameObject leverPrefab;
-    public bool canFlipLever = false;
-
+    [SerializeField] private Transform spawnPoint;
+    public AudioSource coinAudio;
+    public AudioSource jumpAudio;
+    public AudioSource runAudio;
+    
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        transform.position = spawnPoint.transform.position;
     }
     
-    
+
     private void Update()
     {
         if (!IsOwner)
@@ -41,20 +44,16 @@ public class PlayerController : NetworkBehaviour
             _horizontalInput = Input.GetAxis("Horizontal") * speed;
             horizontalMovement = new Vector2(Input.GetAxis("Horizontal"), 0) * speed;
             rb.velocity = new Vector2(horizontalMovement.x, rb.velocity.y);
+            
         }
-
         animator.SetFloat("Speed", Mathf.Abs(_horizontalInput));
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);   
+            jumpAudio.Play();
         }
-
-        /*if (Input.GetKeyDown(KeyCode.E) && canFlipLever)
-        {
-            leverController lever = leverPrefab.gameObject.GetComponent<leverController>();
-            lever.Interact();
-        }*/
+        
 
         animator.SetBool("canJump", canJump);
         // Flip sprite if moving left
@@ -69,33 +68,18 @@ public class PlayerController : NetworkBehaviour
             isFacingRight = false;
             Flip(isFacingRight);
         }
+
+        bool pressKey = Input.GetAxis("Horizontal") != 0 && isGrounded;
+        runAudio.enabled = pressKey;
     }
 
-    /*private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (other.gameObject.CompareTag("circle"))
         {
-            //leverController lever = leverPrefab.gameObject.GetComponent<leverController>();
-            Debug.Log("trying to interact with lever");
-            lever.Interact(true);
-        }
-    }*/
-    private void OnTriggerStay2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("lever"))
-        {
-            canFlipLever = true;
+            coinAudio.Play();
         }
     }
-    
-    private void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("lever"))
-        {
-            canFlipLever = false;
-        }
-    }
-
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -116,7 +100,6 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    
     public void Flip(bool isFacingRight)
     {
         if (!IsLocalPlayer) return;
