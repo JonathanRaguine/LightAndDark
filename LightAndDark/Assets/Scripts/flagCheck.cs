@@ -11,7 +11,9 @@ public class flagCheck : MonoBehaviour
     {
         flagWin = GetComponentInParent<FlagWin>();
     }
-
+    
+    
+    //counts each time a play has reached the flag, needs 2 to win
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))

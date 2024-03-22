@@ -29,12 +29,14 @@ public class PlayerController : NetworkBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        //spawn player at spawnPoint
         transform.position = spawnPoint.transform.position;
     }
     
 
     private void Update()
-    {
+    {   
+        //allows only client to control player
         if (!IsOwner)
         {
             return;
@@ -47,7 +49,9 @@ public class PlayerController : NetworkBehaviour
             
         }
         animator.SetFloat("Speed", Mathf.Abs(_horizontalInput));
-
+        
+        
+        //jumps only if its touching ground
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);   
@@ -56,6 +60,7 @@ public class PlayerController : NetworkBehaviour
         
 
         animator.SetBool("canJump", canJump);
+        
         // Flip sprite if moving left
         if (_horizontalInput < 0)
         {
@@ -70,9 +75,11 @@ public class PlayerController : NetworkBehaviour
         }
 
         bool pressKey = Input.GetAxis("Horizontal") != 0 && isGrounded;
+        //only play footsteps if its moving and is grounded
         runAudio.enabled = pressKey;
     }
 
+    //just for playing sounds when picking up coins
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("circle"))
@@ -80,7 +87,9 @@ public class PlayerController : NetworkBehaviour
             coinAudio.Play();
         }
     }
-
+    
+    
+    //ground check
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("ground"))
@@ -89,7 +98,9 @@ public class PlayerController : NetworkBehaviour
             canJump = false;
         }
     }
-
+    
+    
+    //ground check
     private void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("ground"))
@@ -99,7 +110,9 @@ public class PlayerController : NetworkBehaviour
 
         }
     }
-
+    
+    
+    //flips sprite and sends to server
     public void Flip(bool isFacingRight)
     {
         if (!IsLocalPlayer) return;
@@ -107,13 +120,16 @@ public class PlayerController : NetworkBehaviour
         sr.flipX = isFacingRight;
         FlipSpriteServerRpc(isFacingRight);
     }
+    //server call to flip sprite
     [ServerRpc]
     public void FlipSpriteServerRpc(bool flip)
     {
         sr.flipX = flip;
         FlipSpriteClientRpc(flip);
     }
-
+    
+    
+    //client call to flip sprite
     [ClientRpc]
     public void FlipSpriteClientRpc(bool flip)
     {

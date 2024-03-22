@@ -26,15 +26,17 @@ public class leverController : NetworkBehaviour
 
     private void Update()
     {
+        //if its not the server or the client, dont move the platforms
         if (!IsServer && !IsClient) return;
         foreach (PlatformData platformData in platformsToControl)
         {
+            //use struct to get individual platforms
             GameObject platform = platformData.platform;
             Vector2 initialPoint = platformData.initialPosition;
             Vector2 endPoint = platformData.endPoint;
             Vector2 position = platform.transform.position;
             
-
+            //moves platforms based on position and if its at the initial position/end position
             if (isActivated)
             {
                 platform.transform.position = Vector2.MoveTowards(platform.transform.position, endPoint, Time.deltaTime);
@@ -49,11 +51,11 @@ public class leverController : NetworkBehaviour
             {
                 platformAudio.Stop();
             }
-            Debug.Log(Vector2.Distance(position, initialPoint));
-            
+
         }
     }
-
+    
+    //trigger just to play lever/platform sounds
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -64,6 +66,8 @@ public class leverController : NetworkBehaviour
 
         }
     }
+    
+    //use coroutine to delay sound since lever sound was playing at the same time
     private IEnumerator PlatformAudioDelay()
     {
         yield return new WaitForSeconds(0.25f);

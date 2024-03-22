@@ -11,6 +11,7 @@ public class dropSpawner : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        //wait for server to start
         NetworkManager.Singleton.OnServerStarted += SpawnDropStart;
     }
 
@@ -18,7 +19,8 @@ public class dropSpawner : MonoBehaviour
     {
         NetworkManager.Singleton.OnServerStarted -= SpawnDropStart;
         NetworkObjectPool.Singleton.OnNetworkSpawn();
-
+        
+        //spawn each coin at the position listed in the script
         foreach (Vector2 position in spawnPositions)
         {
             if (NetworkObjectPool.Singleton.GetCurrentPrefabCount(prefab) < MaxPrefabCount)
@@ -27,7 +29,8 @@ public class dropSpawner : MonoBehaviour
             }
         }
     }
-
+    
+    //spawns the coin from object pool
     private void SpawnDrop(Vector2 position)
     {
         NetworkObject obj = NetworkObjectPool.Singleton.GetNetworkObject(prefab, position, Quaternion.identity);

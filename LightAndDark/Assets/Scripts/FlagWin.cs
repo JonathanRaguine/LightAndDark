@@ -15,6 +15,7 @@ public class FlagWin : NetworkBehaviour
 
     private void Update()
     {
+        //condition to win game
         if (flagNum == 2)
         {
             canWin = true;
@@ -23,7 +24,8 @@ public class FlagWin : NetworkBehaviour
         }
 
     }
-
+    
+    //uses hasWon boolean since sound wouldnt play without it
     private void CanWin()
     {
         if (canWin && !hasWon)
